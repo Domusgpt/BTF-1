@@ -6,7 +6,7 @@ import { GeometricBackground } from './components/GeometricBackground';
 import { IntroSequence } from './components/IntroSequence';
 import { ContentOverlay } from './components/ContentOverlay';
 import { STORY_CARDS } from './constants';
-import { StoryCard, Rect } from './types';
+import { StoryCard, Rect, GeometryMode, ThemeColors } from './types';
 import { ArrowRight, Compass, ShipWheel, Anchor, ArrowDown } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -48,6 +48,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [activeCard, setActiveCard] = useState<{ card: StoryCard; rect: Rect } | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentMode, setCurrentMode] = useState<GeometryMode>('chaos');
+  const [currentTheme, setCurrentTheme] = useState<ThemeColors>(STORY_CARDS[0].themeColors);
 
   const mainRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -71,7 +73,11 @@ const App: React.FC = () => {
                 trigger: "header",
                 start: "top top",
                 end: "bottom top",
-                scrub: true
+                scrub: true,
+                onEnter: () => {
+                    setCurrentMode('chaos');
+                    setCurrentTheme(STORY_CARDS[0].themeColors);
+                }
             }
         });
     }
@@ -97,10 +103,25 @@ const App: React.FC = () => {
       }
     );
 
-    // 2. Per-Card Scroll Interactions (Z-Axis Float)
+    // 2. Per-Card Scroll Interactions (Z-Axis Float & State Change)
     cardsRef.current.forEach((card, index) => {
         if(!card) return;
         
+        // State change trigger
+        ScrollTrigger.create({
+            trigger: card,
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => {
+                setCurrentMode(STORY_CARDS[index].geometryMode);
+                setCurrentTheme(STORY_CARDS[index].themeColors);
+            },
+            onEnterBack: () => {
+                setCurrentMode(STORY_CARDS[index].geometryMode);
+                setCurrentTheme(STORY_CARDS[index].themeColors);
+            }
+        });
+
         // Parallax effect for the card relative to scroll
         gsap.fromTo(card,
             { y: 100, scale: 0.95, opacity: 0.5 },
@@ -156,8 +177,8 @@ const App: React.FC = () => {
     if (inner) {
         gsap.to(inner, {
             scale: 1.03,
-            boxShadow: "0 30px 60px -15px rgba(212, 175, 55, 0.1)",
-            borderColor: "rgba(212, 175, 55, 0.4)",
+            boxShadow: `0 30px 60px -15px ${currentTheme.accent}30`,
+            borderColor: `${currentTheme.accent}60`,
             duration: 0.6,
             ease: "expo.out"
         });
@@ -180,7 +201,11 @@ const App: React.FC = () => {
   return (
     <div className="relative min-h-screen font-sans text-parchment selection:bg-gold-500 selection:text-navy-950 perspective-[2000px] overflow-x-hidden bg-navy-950">
       
-      <GeometricBackground isExpanded={isExpanded} />
+      <GeometricBackground 
+        isExpanded={isExpanded} 
+        mode={currentMode}
+        colors={currentTheme}
+      />
       <DepthGauge />
 
       {loading && <IntroSequence onComplete={() => setLoading(false)} />}
@@ -236,7 +261,7 @@ const App: React.FC = () => {
           </div>
         </header>
 
-        {/* Main Content Feed - Added significant vertical spacing */}
+        {/* Main Content Feed */}
         <main className="max-w-7xl mx-auto px-6 pb-40">
           {STORY_CARDS.map((card, index) => (
             <div 
@@ -280,8 +305,8 @@ const App: React.FC = () => {
                    <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-gold-500/30"></div>
 
                    <div className="mb-6 flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full ${card.type === 'catalog' ? 'bg-gold-400' : 'bg-teal-400'} animate-pulse`}></div>
-                      <span className="font-mono text-[10px] tracking-[0.2em] text-gold-500 uppercase opacity-70">{card.type} MODULE</span>
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentTheme.accent }}></div>
+                      <span className="font-mono text-[10px] tracking-[0.2em] uppercase opacity-70" style={{ color: currentTheme.accent }}>{card.type} MODULE</span>
                    </div>
                    
                    <h3 className="text-4xl md:text-5xl font-serif text-parchment group-hover:text-gold-100 transition-colors mb-4">
@@ -296,7 +321,7 @@ const App: React.FC = () => {
                      {card.description}
                    </p>
 
-                   <div className="flex items-center gap-4 text-gold-400 text-xs tracking-[0.2em] mt-auto group/btn">
+                   <div className="flex items-center gap-4 text-xs tracking-[0.2em] mt-auto group/btn" style={{ color: currentTheme.accent }}>
                       <span className="group-hover:underline decoration-gold-500/50 underline-offset-4">EXPAND DATA</span>
                       <ArrowRight size={14} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
                    </div>

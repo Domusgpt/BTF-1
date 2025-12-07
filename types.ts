@@ -11,6 +11,13 @@ export interface ProductItem {
   image: string;
 }
 
+export type GeometryMode = 'chaos' | 'circle' | 'grid' | 'lotus';
+
+export interface ThemeColors {
+  accent: string;
+  secondary: string;
+}
+
 export interface StoryCard {
   id: string;
   title: string;
@@ -20,6 +27,8 @@ export interface StoryCard {
   image: string;
   coordinates: string;
   type: 'product' | 'ethos' | 'process' | 'catalog';
+  geometryMode: GeometryMode;
+  themeColors: ThemeColors;
   productList?: ProductItem[];
 }
 

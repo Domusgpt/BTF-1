@@ -40,7 +40,7 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
       width: '100vw',
       height: '100vh',
       borderRadius: '0px',
-      duration: 1.0, // Slower expand
+      duration: 1.0, 
       ease: 'power4.inOut',
     })
     // 3. Reveal Content
@@ -89,7 +89,6 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
     });
   };
 
-  // Horizontal scroll for catalog via wheel
   const handleWheel = (e: React.WheelEvent) => {
      if(carouselRef.current) {
          carouselRef.current.scrollLeft += e.deltaY;
@@ -99,7 +98,7 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
   return (
     <div 
       ref={containerRef}
-      className={`bg-navy-950 overflow-hidden shadow-2xl flex flex-col ${isCatalog ? 'md:flex-col' : 'md:flex-row'}`}
+      className={`bg-navy-950/95 backdrop-blur-xl overflow-hidden shadow-2xl flex flex-col ${isCatalog ? 'md:flex-col' : 'md:flex-row'}`}
     >
       {/* Close Button */}
       <button 
@@ -135,7 +134,7 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
                 </div>
             </div>
 
-            <div ref={textContainerRef} className="w-full md:w-1/2 h-[60vh] md:h-full relative bg-navy-950 flex flex-col justify-center p-8 md:p-24">
+            <div ref={textContainerRef} className="w-full md:w-1/2 h-[60vh] md:h-full relative bg-transparent flex flex-col justify-center p-8 md:p-24">
                 {/* Bg Graphic */}
                 <div className="absolute top-0 right-0 p-20 opacity-5 pointer-events-none">
                     <svg width="400" height="400" viewBox="0 0 100 100" className="animate-[spin_60s_linear_infinite]">
@@ -182,7 +181,7 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
 
       {/* --- CATALOG LAYOUT (Full width carousel) --- */}
       {isCatalog && (
-          <div ref={contentElementsRef} className="w-full h-full flex flex-col p-8 md:p-12 relative bg-navy-950/95 backdrop-blur-lg">
+          <div ref={contentElementsRef} className="w-full h-full flex flex-col p-8 md:p-12 relative bg-transparent">
               {/* Header Area */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-white/10 pb-8 overlay-animate-up shrink-0">
                   <div>
@@ -240,7 +239,7 @@ export const ContentOverlay: React.FC<Props> = ({ card, initialRect, onClose }) 
                               <div className="mt-auto space-y-3">
                                   {product.specs.map((spec, sIdx) => (
                                       <div key={sIdx} className="flex justify-between items-center text-xs font-sans tracking-wider group/spec">
-                                          <span className="text-gold-500/70 uppercase flex items-center gap-2">
+                                          <span className={`text-gold-500/70 uppercase flex items-center gap-2 ${spec.label === 'CO-Treated' ? 'text-teal-400 font-bold' : ''}`}>
                                             {sIdx === 0 && <Fish size={12} className="opacity-50 group-hover/spec:opacity-100"/>}
                                             {sIdx === 1 && <Scale size={12} className="opacity-50 group-hover/spec:opacity-100"/>}
                                             {sIdx === 2 && <Box size={12} className="opacity-50 group-hover/spec:opacity-100"/>}

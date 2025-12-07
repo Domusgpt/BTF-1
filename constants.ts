@@ -11,6 +11,8 @@ export const STORY_CARDS: StoryCard[] = [
     description: 'Sashimi-grade quality locked in at the cellular level. Superior to fresh.',
     fullContent: 'We challenge the "Fresh is Best" myth. Our fleet utilizes advanced super-freezing technology immediately upon catch. By dropping core temperatures to -60°C within minutes, we prevent the formation of large ice crystals that damage cell membranes. The result? When thawed, our Yellowfin and Swordfish exhibit zero drip loss, firmer texture, and a suspended state of freshness that "fresh" logistics simply cannot compete with.',
     image: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=2574&auto=format&fit=crop',
+    geometryMode: 'chaos',
+    themeColors: { accent: '#64ffda', secondary: '#112240' }
   },
   {
     id: '02',
@@ -21,6 +23,8 @@ export const STORY_CARDS: StoryCard[] = [
     description: 'AAA Saku Blocks and Loins. CO-Treated for vibrant color retention.',
     fullContent: 'Our crown jewel. Wild-caught Panamanian Yellowfin, processed into precision-cut Saku blocks and Center-Cut Loins. We utilize Tasteless Smoke (CO) treatment to ensure the myoglobin retains its ruby-red vibrancy during the frozen state. Ideal for poke, sushi, or searing. Consistency in size, color, and grading (AAA/AA) allows for precise food cost calculation and zero waste in the kitchen.',
     image: 'https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?q=80&w=2070&auto=format&fit=crop',
+    geometryMode: 'circle',
+    themeColors: { accent: '#ef4444', secondary: '#7f1d1d' }
   },
   {
     id: '03',
@@ -31,6 +35,8 @@ export const STORY_CARDS: StoryCard[] = [
     description: 'Explore our full range. Swordfish, Mahi, Snapper, Grouper.',
     fullContent: 'Our supply chain extends beyond Tuna. We provide a full suite of premium frozen seafood, individually vacuum packed (IVP) for maximum shelf life and inventory flexibility. From the dense steak-texture of Swordfish to the delicate flake of Red Snapper, every item adheres to our rigid vertical integration standards.',
     image: 'https://images.unsplash.com/photo-1517182486459-33c4c66584cb?q=80&w=2673&auto=format&fit=crop',
+    geometryMode: 'grid',
+    themeColors: { accent: '#38bdf8', secondary: '#0c4a6e' },
     productList: [
       {
         name: 'Swordfish Steaks',
@@ -39,7 +45,8 @@ export const STORY_CARDS: StoryCard[] = [
         specs: [
           { label: 'Cut', value: 'Center Cut Steak' },
           { label: 'Pack', value: 'IVP 10oz / 50lb Master' },
-          { label: 'Origin', value: 'Ecuador / Panama' }
+          { label: 'Origin', value: 'Ecuador / Panama' },
+          { label: 'Catch Method', value: 'Longline' }
         ]
       },
       {
@@ -49,7 +56,9 @@ export const STORY_CARDS: StoryCard[] = [
         specs: [
           { label: 'Cut', value: 'Fletches / Portions' },
           { label: 'Grade', value: 'Sashimi / Grill' },
-          { label: 'Pack', value: 'IVP 6-8oz' }
+          { label: 'Pack', value: 'IVP 6-8oz' },
+          { label: 'CO-Treated', value: 'Yes' },
+          { label: 'Catch Method', value: 'Longline' }
         ]
       },
       {
@@ -59,7 +68,8 @@ export const STORY_CARDS: StoryCard[] = [
         specs: [
           { label: 'Cut', value: 'Natural Fillet' },
           { label: 'Size', value: '8/10 oz' },
-          { label: 'Pack', value: 'IQF / 10lb Box' }
+          { label: 'Pack', value: 'IQF / 10lb Box' },
+          { label: 'Catch Method', value: 'Handline' }
         ]
       },
       {
@@ -69,7 +79,8 @@ export const STORY_CARDS: StoryCard[] = [
         specs: [
           { label: 'Cut', value: 'Skinless Fillet' },
           { label: 'Size', value: '6/8 oz' },
-          { label: 'Origin', value: 'Gulf / Caribbean' }
+          { label: 'Origin', value: 'Gulf / Caribbean' },
+          { label: 'Catch Method', value: 'Handline' }
         ]
       }
     ]
@@ -83,5 +94,7 @@ export const STORY_CARDS: StoryCard[] = [
     description: 'We own the boats. We own the plants. Total traceability.',
     fullContent: 'In an industry rife with opacity, Pono Marketing x Fishmonger Inc offers total transparency. We do not aggregate from unknown artisanal fleets. We operate the longliners. We manage the HACCP-certified processing plants in Central America. We control the cold chain logistics. This allows us to guarantee species authenticity and ethical labor practices.',
     image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?q=80&w=2574&auto=format&fit=crop',
+    geometryMode: 'lotus',
+    themeColors: { accent: '#d4af37', secondary: '#453a0f' }
   }
 ];
